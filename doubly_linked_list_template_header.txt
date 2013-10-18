@@ -1,0 +1,166 @@
+#ifndef DOUBLY_LINKED_LIST_H_INCLUDED
+#define DOUBLY_LINKED_LIST_H_INCLUDED
+#include <iostream>
+
+using namespace std;
+
+template <class T> class DoublyLinkedList
+{
+public:
+    DoublyLinkedList()
+    {
+        root = NULL;
+        tail = NULL;
+    }
+    //DoublyLinkedList()
+    void insertnode(T);
+    void deletenode(T);
+    void traversefromroot();
+    void traversefromtail();
+    //T test(T);
+private:
+    struct node
+    {
+        T x;
+        node *nextptr;
+        node *prevptr;
+        node(T value1,node* next1 = NULL, node* prev1 = NULL)
+        {
+            x = value1;
+            nextptr = next1;
+            prevptr = prev1;
+        }
+    };
+    node* root;
+    node* tail;
+};
+
+//int top = 0;
+//int temp = -1;
+//int integer;
+//node *root;
+//node *tail;
+
+//void insertnode(int);
+//void traversefromroot(node *);
+//void traversefromtail(node *);
+//void deletenode(node *,node *, node *);
+
+template <class T> void DoublyLinkedList<T>::insertnode(T element)
+{
+    static int top = 0;
+    node *pointer;
+    pointer = new node(element);
+    //pointer->x = element;
+
+    if(top==0)
+    {
+        root = pointer;
+        tail = pointer;
+        tail->nextptr = 0;
+        root->prevptr = 0;
+    }
+    else
+    {
+        tail->nextptr = pointer;
+        pointer->prevptr = tail;
+        tail = pointer;
+        tail->nextptr = 0;
+    }
+    top++;
+}
+
+template <class T> void DoublyLinkedList<T>::traversefromroot()
+{
+    node *currentptr = root;
+    while(currentptr!=NULL)
+    {
+        cout<<currentptr->x<<endl;
+        currentptr = currentptr->nextptr;
+    }
+}
+
+template <class T> void DoublyLinkedList<T>::traversefromtail()
+{
+    node *traverseptr = tail;
+    while(traverseptr!=NULL)
+    {
+        cout<<traverseptr->x<<endl;
+        traverseptr = traverseptr->prevptr;
+    }
+}
+
+
+
+template <class T> void DoublyLinkedList<T>::deletenode(T store)
+{
+    node* temp1 = 0;
+    node *object;
+    object  = new node(store);
+    //node* tempptr = root;
+    /*while(tempptr->x!=store || tempptr!=NULL)
+    {
+        tempptr = tempptr->nextptr;
+    }
+
+    if(tempptr==NULL)
+    {
+        cout<<"This node does not exist"<<endl;
+        delete tempptr;
+        return;
+    }*/
+    //object->x = store;
+    //method for confirming validity of node
+    //int signal = 0;
+    //node* tempptr = root;
+    if(object->x==root->x)
+    {
+        temp1 = root;
+        root = root->nextptr;
+        temp1->nextptr = 0;
+        root->prevptr = 0;
+        delete object;
+        delete temp1;
+    }
+    else if(object->x ==tail->x)
+    {
+        temp1 = tail;
+        tail = tail->prevptr;
+        tail->nextptr = 0;
+        temp1->prevptr = 0;
+        delete object;
+        delete temp1;
+    }
+    else
+    {
+        node* currentptr1 = root;
+        node *traverseptr1 = tail;
+        while(((currentptr1->nextptr)->x != object->x) && currentptr1!=NULL)
+        {
+            currentptr1 = currentptr1->nextptr;
+        }
+        while(((traverseptr1->prevptr)->x != object->x) && traverseptr1!=NULL)
+        {
+            traverseptr1 = traverseptr1->prevptr;
+        }
+        /*if(currentptr1 == 0 && traverseptr1== 0)
+        {
+            cout<<"The value you want to remove does not exist in the list"<<endl;
+            delete object;
+            delete temp1;
+            return;
+        }*/
+        temp1 = currentptr1->nextptr;
+        currentptr1->nextptr = traverseptr1;
+        traverseptr1->prevptr = currentptr1;
+        temp1->nextptr = 0;
+        temp1->prevptr = 0;
+        delete object;
+        delete temp1;
+    }
+    //delete tempptr;
+}
+
+
+
+#endif // DOUBLY_LINKED_LIST_H_INCLUDED
