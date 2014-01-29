@@ -17,7 +17,7 @@ public:
     void deletenode(T);
     void traversefromroot();
     void traversefromtail();
-    //T test(T);
+    
 private:
     struct node
     {
@@ -35,23 +35,11 @@ private:
     node* tail;
 };
 
-//int top = 0;
-//int temp = -1;
-//int integer;
-//node *root;
-//node *tail;
-
-//void insertnode(int);
-//void traversefromroot(node *);
-//void traversefromtail(node *);
-//void deletenode(node *,node *, node *);
-
 template <class T> void DoublyLinkedList<T>::insertnode(T element)
 {
     static int top = 0;
     node *pointer;
     pointer = new node(element);
-    //pointer->x = element;
 
     if(top==0)
     {
@@ -97,22 +85,7 @@ template <class T> void DoublyLinkedList<T>::deletenode(T store)
     node* temp1 = 0;
     node *object;
     object  = new node(store);
-    //node* tempptr = root;
-    /*while(tempptr->x!=store || tempptr!=NULL)
-    {
-        tempptr = tempptr->nextptr;
-    }
-
-    if(tempptr==NULL)
-    {
-        cout<<"This node does not exist"<<endl;
-        delete tempptr;
-        return;
-    }*/
-    //object->x = store;
-    //method for confirming validity of node
-    //int signal = 0;
-    //node* tempptr = root;
+        
     if(object->x==root->x)
     {
         temp1 = root;
@@ -143,13 +116,7 @@ template <class T> void DoublyLinkedList<T>::deletenode(T store)
         {
             traverseptr1 = traverseptr1->prevptr;
         }
-        /*if(currentptr1 == 0 && traverseptr1== 0)
-        {
-            cout<<"The value you want to remove does not exist in the list"<<endl;
-            delete object;
-            delete temp1;
-            return;
-        }*/
+        
         temp1 = currentptr1->nextptr;
         currentptr1->nextptr = traverseptr1;
         traverseptr1->prevptr = currentptr1;
@@ -158,7 +125,6 @@ template <class T> void DoublyLinkedList<T>::deletenode(T store)
         delete object;
         delete temp1;
     }
-    //delete tempptr;
 }
 
 
